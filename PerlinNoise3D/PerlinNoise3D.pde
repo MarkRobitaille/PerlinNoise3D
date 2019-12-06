@@ -1,6 +1,14 @@
 // -------------------------
 // Perlin Noise 3D
-// Mark Robitaille
+// Mark Robitaille, 2019
+//
+// This program shows off a 3D application of 2D Perlin noise.
+// By changing the enviromentType variable below, you can change the produced scene.
+//
+// Controls:
+// WASD for movement
+// Q to descend, E to ascend
+// Arrow keys for camera movement
 // -------------------------
 
 // Program Settings
