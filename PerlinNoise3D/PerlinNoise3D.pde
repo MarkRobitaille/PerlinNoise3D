@@ -21,7 +21,7 @@ int prevTime;
 int diffTime;
 
 // setup
-// Runs initially when opening program
+// Runs initially when opening program.
 void setup() {
   // General setup in processing
   size(800, 640, P3D);
@@ -49,7 +49,7 @@ void setup() {
 
 
 // draw
-// Runs every time frame is drawn
+// Runs every time frame is drawn.
 void draw() {
   background(135, 205, 235);
   
@@ -171,7 +171,7 @@ void keyReleased() {
 
 // -------------------------
 // Player Class
-// Used to keep track of player movement within the environment
+// Used to keep track of player movement within the environment.
 // -------------------------
 class Player {
   PVector playerLocation;
@@ -259,7 +259,7 @@ class Player {
 
 // -------------------------
 // Chunk Class
-// Used to store environment chunks and contains methods for calculating a heightmap and rendering the environment
+// Used to store environment chunks and contains methods for calculating a heightmap and rendering the environment.
 // -------------------------
 class Chunk {
   int type;
@@ -326,7 +326,7 @@ class Chunk {
   }
   
   // generateHeightMap
-  // Calculate height map for chunk's environment using either octaves or not
+  // Calculate height map for chunk's environment using either octaves or not.
   void generateHeightMap() {
     if (useOctaves) {
       for (int row=0; row<heightMap.length; row++) {
@@ -346,24 +346,27 @@ class Chunk {
   }
   
   // generateOctaveNoise
-  // Calculate the noise value for a given x and z coordinates and the provided number of octaves. 
+  // Calculate the noise value for given x and z coordinates and the provided number of octaves. 
   float generateOctaveNoise(float x, float z, int octaves) {
     float localFrequency = frequency;
     float localAmplitude = 1;
     float noiseValue = 0;
     float amplitudeSum = 0;
     for (int i=0; i<octaves; i++) {
+      // Find noise value by scaling x and z by the local frequency and multiply by the local amplitude
+      // Add each octave!
       noiseValue += noise(x * localFrequency + 1.0, z * localFrequency + 1.0) * localAmplitude;
-      amplitudeSum += localAmplitude;
-      localFrequency *= lacunarity;
-      localAmplitude *= persistence;
+      amplitudeSum += localAmplitude; // Keep track of total possible amplitude possible to scale
+      localFrequency *= lacunarity; // Increase/decrease the frequency by the lacunarity for future octave(s)
+      localAmplitude *= persistence; // Increase/decrease the frequency by the persistence for future octave(s)
     }
     return noiseValue/amplitudeSum * amplitude; // To scale to our intended amplitude
   } 
   
   // generateNoise
-  // Generates noise without using octaves.
+  // Generates noise value for given x and z coordinate without using octaves.
   float generateNoise(float x, float z) {
+    // Find noise value by scaling x and z by the frequency and multiply by the amplitude
     return noise(x * frequency, z * frequency) * amplitude;
   }
   
